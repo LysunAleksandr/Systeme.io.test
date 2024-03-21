@@ -1,0 +1,36 @@
+parameters:
+    # Adds a fallback DATABASE_URL if the env var is not set.
+    # This allows you to run cache:warmup even if your
+    # environment variables are not available yet.
+    # You should not need to change this value.
+    env(DATABASE_URL): ''
+
+doctrine:
+    dbal:
+        # configure these for your database server
+        schema_filter: ~^(?!view_)~
+        driver: pdo_pgsql
+        server_version: 9.5
+        charset: utf8
+
+        url: '%env(resolve:DATABASE_URL)%'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+                alias: App
+        filters:
+            contractor_filter:
+                class: App\Service\Doctrine\Scopes\ScopeContractorFilter
+            transportation_participant_filter:
+                class: App\Service\Doctrine\Scopes\ScopeTransportationParticipantFilter
+            repair_center-filter:
+                class: App\Service\Doctrine\Scopes\ScopeRepairCenterFilter
+            repair-subdivision-filter:
+                class: App\Service\Doctrine\Scopes\ScopeRepairSubdivisionFilter
