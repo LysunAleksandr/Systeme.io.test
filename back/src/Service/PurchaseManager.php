@@ -8,6 +8,14 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class PurchaseManager
 {
+    // TODO хранить в базе как справочник
+    public const TAX = [
+        'DE' => 19,
+        'IT' => 22,
+        'GR' => 24,
+        'FR' => 20,
+    ];
+
     public function __construct(
         protected EntityManagerInterface $entityManager,
     ) {
@@ -25,8 +33,12 @@ class PurchaseManager
                     $price = $price - $coupon->getDiscount() > 0 ? $price - $coupon->getDiscount() : $price;
                 }
             }
+            $taxCode = substr($purchase->getTaxNumber(), 0, 2);
+            if (array_key_exists($taxCode, self::TAX)) {
+                $price = $price * (1 + self::TAX[$taxCode]/100);
+            }
         }
 
-        return $price;
+        return round($price, 2);
     }
 }

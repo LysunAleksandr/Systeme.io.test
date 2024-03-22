@@ -47,7 +47,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/calculate-price', methods: 'POST')]
-    public function createAction(Request $request, PurchaseManager $purchaseManager, SerializerInterface $serializer): Response
+    public function calculatePriceAction(Request $request, PurchaseManager $purchaseManager, SerializerInterface $serializer): Response
     {
         try {
             $entity = $serializer->deserialize(
