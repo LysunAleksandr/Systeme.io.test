@@ -10,12 +10,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 class Product
 {
-
     #[ORM\Id]
     #[ORM\Column(type: 'integer', unique: true)]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     #[Groups(['View'])]
-    protected ?int $id;
+    protected int $id;
 
     #[ORM\Column(type: 'string', nullable: false)]
     #[Groups(['View'])]
@@ -25,7 +24,7 @@ class Product
     #[Groups(['View'])]
     protected float $price = 0;
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

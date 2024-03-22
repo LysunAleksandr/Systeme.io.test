@@ -10,7 +10,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 class Coupon
 {
-
     #[ORM\Id]
     #[ORM\Column(type: 'integer', unique: true)]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
