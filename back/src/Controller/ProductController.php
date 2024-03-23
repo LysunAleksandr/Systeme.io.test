@@ -57,8 +57,26 @@ class ProductController extends AbstractController
                 $context ?? $this->getDefaultCreateContext(),
             );
 
-            $price = $purchaseManager->getPurchasePrice($entity);
-            return $this->json(['price' => $price], Response::HTTP_OK);
+            $purchase = $purchaseManager->setPurchasePrice($entity);
+            return $this->json($purchase, Response::HTTP_OK);
+        } catch (\Exception $exception) {
+            return $this->json(['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    #[Route('/purchase', methods: 'POST')]
+    public function purchaseAction(Request $request, PurchaseManager $purchaseManager, SerializerInterface $serializer): Response
+    {
+        try {
+            $entity = $serializer->deserialize(
+                $request->getContent(),
+                Purchase::class,
+                'json',
+                $context ?? $this->getDefaultCreateContext(),
+            );
+
+            $purchase = $purchaseManager->buy($entity);
+            return $this->json($purchase, Response::HTTP_OK);
         } catch (\Exception $exception) {
             return $this->json(['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table]
@@ -21,10 +22,12 @@ class Coupon
     protected string $couponCode;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
+    #[Assert\Type(type: 'bool')]
     #[Groups(['View'])]
     protected bool $procent = true;
 
     #[ORM\Column(type: 'float')]
+    #[Assert\Range(min: 0)]
     #[Groups(['View'])]
     protected float $discount = 0;
 

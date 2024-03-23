@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table]
@@ -17,10 +18,12 @@ class Product
     protected int $id;
 
     #[ORM\Column(type: 'string', nullable: false)]
+    #[Assert\Length(max: 255)]
     #[Groups(['View'])]
     protected string $name;
 
     #[ORM\Column(type: 'float')]
+    #[Assert\Range(min: 0)]
     #[Groups(['View'])]
     protected float $price = 0;
 
