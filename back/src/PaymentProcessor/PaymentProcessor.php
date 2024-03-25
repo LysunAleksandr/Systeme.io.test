@@ -21,6 +21,7 @@ class PaymentProcessor
 
     private function getProcessorByName(string $processor): PaymentProcessorInterface
     {
+        $processor = mb_strtoupper(mb_substr($processor, 0, 1)) . mb_substr($processor, 1);
         $adapterClass = __NAMESPACE__ . '\\Strategy\\' . $processor . 'PaymentProcessorAdapter';
 
         if (!class_exists($adapterClass)) {
