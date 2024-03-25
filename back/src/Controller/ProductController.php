@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Entity\Purchase;
 use App\Service\PurchaseManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,9 +31,11 @@ class ProductController extends AbstractController
     }
 
     #[Route('/', methods: ['GET'])]
-    public function showAction(): Response
+    public function showAction(EntityManagerInterface $em): Response
     {
-        return $this->json(['total' => 0], Response::HTTP_OK);
+        $entity = $em->getRepository(Product::class)->findOneBy(['id' => 1]);
+
+        return $this->json([$entity], Response::HTTP_OK);
     }
 
     #[Route('/{id}', methods: ['GET'])]

@@ -13,7 +13,7 @@ http://localhost:8080/api/v1/products/calculate-price
 
 Пример запроса в формате curl команды:
 curl --location --request POST 'http://localhost:8080/api/v1/products/calculate-price' \
---header 'Content-Type: text/plain' \
+--header 'Content-Type: application/json' \
 --data-raw '{
 "product": 1,
 "taxNumber": "DE123456789",
@@ -33,7 +33,7 @@ http://localhost:8080/api/v1/products/purchase
 
 Пример запроса в формате curl команды:
 curl --location --request POST 'http://localhost:8080/api/v1/products/purchase' \
---header 'Content-Type: text/plain' \
+--header 'Content-Type: application/json' \
 --data-raw '{
 "product": 1,
 "taxNumber": "IT12345678900",
