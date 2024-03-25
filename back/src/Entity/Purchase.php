@@ -26,7 +26,7 @@ class Purchase
     #[ORM\Column(type: 'string', length: 13, nullable: false)]
     #[Groups(['View', 'Create'])]
     #[Assert\Length(min: 11, max: 13)]
-    #[Assert\Regex(pattern: '/^[A-Z]{2}[A-Z0-9]{2}[0-9]{7,9}?$/')]
+    #[Assert\Regex(pattern: '/^[A-Z]{2}([A-Z0-9]{2})?[0-9]{9}?$/')]
     protected string $taxNumber;
 
     #[ORM\Column(type: 'string', length: 10, nullable: false)]
